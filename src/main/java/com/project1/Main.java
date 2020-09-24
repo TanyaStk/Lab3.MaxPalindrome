@@ -1,10 +1,8 @@
 package com.project1;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,17 +10,12 @@ public class Main {
             System.out.println("Enter text:");
             List<String> text = new ArrayList<>();
             String nextLine = scr.nextLine();
-            if(nextLine.isEmpty()){
-                throw new IOException();
-            }
             while (!nextLine.isEmpty()) {
                 text.add(nextLine);
                 nextLine = scr.nextLine();
             }
-            System.out.println("Max palindrome is: " + findMaxPalindrome(text));
-        }
-        catch(IOException ex){
-            System.out.println("Empty string.");
+            String palindromeOfMaxSize = findMaxPalindrome(text);
+            System.out.println("Max palindrome is: " + palindromeOfMaxSize);
         }
     }
 
@@ -30,9 +23,8 @@ public class Main {
         String maxPalindrome = "";
         int maxSizeOfPalindrome = 0;
         for (String line : text) {
-            StringTokenizer tokenizer = new StringTokenizer(line, " ,.");
-            while (tokenizer.hasMoreTokens()) {
-                String word = tokenizer.nextToken();
+            String[] words = line.split("[ .,]");
+            for (String word : words) {
                 if (isPalindrome(word) && word.length() > maxSizeOfPalindrome) {
                     maxPalindrome = word;
                     maxSizeOfPalindrome = word.length();
